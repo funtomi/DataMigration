@@ -1,0 +1,10 @@
+F:\工作\2018\淮安公积金业务数据迁移\Code\IRAPDataMigration\IRAPDataMigration\obj\Debug\IRAP.DataMigration.csprojResolveAssemblyReference.cache
+F:\工作\2018\淮安公积金业务数据迁移\Code\IRAPDataMigration\IRAPDataMigration\obj\Debug\IRAPDataMigration.Properties.Resources.resources
+F:\工作\2018\淮安公积金业务数据迁移\Code\IRAPDataMigration\IRAPDataMigration\obj\Debug\IRAP.DataMigration.csproj.GenerateResource.Cache
+F:\工作\2018\淮安公积金业务数据迁移\Code\IRAPDataMigration\IRAPDataMigration\obj\Debug\IRAPDataMigration.exe.licenses
+F:\工作\2018\淮安公积金业务数据迁移\Code\IRAPDataMigration\IRAPDataMigration\obj\Debug\IRAPDataMigration.exe
+F:\工作\2018\淮安公积金业务数据迁移\Code\IRAPDataMigration\IRAPDataMigration\obj\Debug\IRAPDataMigration.pdb
+F:\工作\2018\淮安公积金业务数据迁移\Code\IRAPDataMigration\IRAPDataMigration\obj\Debug\IRAP.DataMigration.Form1.resources
+F:\工作\2018\淮安公积金业务数据迁移\Code\IRAPDataMigration\Export\IRAPDataMigration.exe.config
+F:\工作\2018\淮安公积金业务数据迁移\Code\IRAPDataMigration\Export\IRAPDataMigration.exe
+F:\工作\2018\淮安公积金业务数据迁移\Code\IRAPDataMigration\Export\IRAPDataMigration.pdb
