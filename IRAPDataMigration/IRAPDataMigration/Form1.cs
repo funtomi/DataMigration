@@ -39,10 +39,22 @@ namespace IRAP.DataMigration {
             DataMigirationTransfer trans = new DataMigirationTransfer();
             trans.ShowResult += ShowResultToGrid;
             trans.Start();
-
+            //提取
             DataMigirationDraw draw = new DataMigirationDraw();
             draw.ShowResult += ShowResultToGrid;
             draw.Start();
+            //提取还贷签约
+            DataMigirationDrawLoanContract drawLC = new DataMigirationDrawLoanContract();
+            drawLC.ShowResult += ShowResultToGrid;
+            drawLC.Start();
+            //提取还贷
+            DataMigirationDrawLoan drawLoan = new DataMigirationDrawLoan();
+            drawLoan.ShowResult += ShowResultToGrid;
+            drawLoan.Start();
+            //贷款
+            DataMigirationLoan loan = new DataMigirationLoan();
+            loan.ShowResult += ShowResultToGrid;
+            loan.Start();
         }
 
         private void Form1_Load(object sender, EventArgs e) {

@@ -79,6 +79,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DataMigirationDraw.cs" />
+    <Compile Include="DataMigirationDrawLoan.cs" />
+    <Compile Include="DataMigirationDrawLoanContract.cs" />
+    <Compile Include="DataMigirationLoan.cs" />
     <Compile Include="DataMigirationTransfer.cs" />
     <Compile Include="DataMigrationBase.cs" />
     <Compile Include="Form1.cs">

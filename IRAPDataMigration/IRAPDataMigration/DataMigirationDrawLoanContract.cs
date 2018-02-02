@@ -6,21 +6,21 @@ using System.Linq;
 using System.Reflection;
 
 namespace IRAP.DataMigration {
-    class DataMigirationDraw : DataMigrationBase {
-        private static string className = MethodBase.GetCurrentMethod().DeclaringType.FullName; 
+    class DataMigirationDrawLoanContract:DataMigrationBase {
+        private static string className = MethodBase.GetCurrentMethod().DeclaringType.FullName;
 
         public override void Query(out int errCode, out string errText) {
             string strProcedureName = string.Format("{0}.{1}", className, MethodBase.GetCurrentMethod().Name);
             WriteLog.Instance.WriteBeginSplitter(strProcedureName);
-            var sourceData = GetSourceData("uvw_todo_draw", out errCode, out errText);
+            var sourceData = GetSourceData("uvw_todo_tqhdqy", out errCode, out errText);
             if (errCode != 0) {
                 return;
             }
-            var list = ModelConvertHelper<DrawEntity>.ConvertToModel(sourceData).ToList<DrawEntity>();
+            var list = ModelConvertHelper<DrawLoanContractEntity>.ConvertToModel(sourceData).ToList<DrawLoanContractEntity>();
             if (list == null || list.Count == 0) {
                 return;
             }
-            foreach (DrawEntity item in list) {
+            foreach (DrawLoanContractEntity item in list) {
                 if (item == null) {
                     continue;
                 }
@@ -36,18 +36,16 @@ namespace IRAP.DataMigration {
             if (obj == null) {
                 return;
             }
-            var item = obj as DrawEntity;
+            var item = obj as DrawLoanContractEntity;
             if (item == null) {
                 return;
             }
             try {
                 WriteLog.Instance.Write(
                     string.Format("执行存储过程 " +
-                        "usp_wt_draw，参数：" +
-                        "i_ywno={0}|i_gracntno={1}|i_gflxid={2}|i_contractno={3}|i_bankcode={4}|i_cardno={5}"+
-                        "|i_grname={6}|i_mobileno={7}|i_bjamount={8}|i_lxamount={9}|i_remark={10}",
-                       item.TRANSACTNO, item.GRACNTNO, item.GFLXID, item.CONTRACTNO, item.BANKCODE,item.CARDNO,
-                       item.GRNAME,item.MOBILENO,item.BJAMOUNT,item.LXAMOUNT,item.REMARK),
+                        "usp_wt_tqhdqy，参数：" +
+                        "i_ywno={0}|i_gracntno={1}|i_loanacntno={2}|i_remark={3}",
+                       item.TRANSACTNO, item.GRACNTNO, item.LOANACNTNO,item.REMARK),
                     strProcedureName);
 
                 #region 执行数据库函数或存储过程
@@ -55,27 +53,13 @@ namespace IRAP.DataMigration {
                     conn.Open();
                     OracleCommand ocm = conn.CreateCommand();
                     ocm.CommandType = CommandType.StoredProcedure;
-                    ocm.CommandText = "usp_wt_draw";
+                    ocm.CommandText = "usp_wt_tqhdqy";
                     ocm.Parameters.Add("i_ywno", OracleDbType.Decimal).Direction = ParameterDirection.Input;
                     ocm.Parameters["i_ywno"].Value = item.TRANSACTNO;
                     ocm.Parameters.Add("i_gracntno", OracleDbType.Varchar2).Direction = ParameterDirection.Input;
                     ocm.Parameters["i_gracntno"].Value = item.GRACNTNO;
-                    ocm.Parameters.Add("i_gflxid", OracleDbType.Decimal).Direction = ParameterDirection.Input;
-                    ocm.Parameters["i_gflxid"].Value = item.GFLXID;
-                    ocm.Parameters.Add("i_contractno", OracleDbType.Varchar2).Direction = ParameterDirection.Input;
-                    ocm.Parameters["i_contractno"].Value = item.CONTRACTNO;
-                    ocm.Parameters.Add("i_bankcode", OracleDbType.Varchar2).Direction = ParameterDirection.Input;
-                    ocm.Parameters["i_bankcode"].Value = item.BANKCODE;
-                    ocm.Parameters.Add("i_cardno", OracleDbType.Varchar2).Direction = ParameterDirection.Input;
-                    ocm.Parameters["i_cardno"].Value = item.CARDNO;
-                    ocm.Parameters.Add("i_grname", OracleDbType.Varchar2).Direction = ParameterDirection.Input;
-                    ocm.Parameters["i_grname"].Value = item.GRNAME;
-                    ocm.Parameters.Add("i_mobileno", OracleDbType.Varchar2).Direction = ParameterDirection.Input;
-                    ocm.Parameters["i_mobileno"].Value = item.MOBILENO;
-                    ocm.Parameters.Add("i_bjamount", OracleDbType.Decimal).Direction = ParameterDirection.Input;
-                    ocm.Parameters["i_bjamount"].Value = item.BJAMOUNT;
-                    ocm.Parameters.Add("i_lxamount", OracleDbType.Decimal).Direction = ParameterDirection.Input;
-                    ocm.Parameters["i_lxamount"].Value = item.LXAMOUNT; 
+                    ocm.Parameters.Add("i_loanacntno", OracleDbType.Decimal).Direction = ParameterDirection.Input;
+                    ocm.Parameters["i_loanacntno"].Value = item.LOANACNTNO; 
                     ocm.Parameters.Add("i_remark", OracleDbType.Varchar2).Direction = ParameterDirection.Input;
                     ocm.Parameters["i_remark"].Value = item.REMARK;
                     ocm.Parameters.Add("o_errCode", OracleDbType.Int32).Direction = ParameterDirection.Output;
@@ -91,7 +75,7 @@ namespace IRAP.DataMigration {
                 #endregion
             } catch (Exception error) {
                 errCode = 99000;
-                errText = string.Format("获取视图usp_wt_draw内容时发生异常：{0}", error.Message);
+                errText = string.Format("获取视图usp_wt_tqhdqy内容时发生异常：{0}", error.Message);
                 ShowResult(item.REMARK, errText);
                 WriteLog.Instance.Write(errText, strProcedureName);
             } finally {
