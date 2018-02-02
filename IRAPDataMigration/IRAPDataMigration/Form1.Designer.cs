@@ -51,6 +51,26 @@
             this.colMessage});
             this.gridView1.GridControl = this.gridControl1;
             this.gridView1.Name = "gridView1";
+            this.gridView1.OptionsBehavior.AlignGroupSummaryInGroupRow = DevExpress.Utils.DefaultBoolean.False;
+            this.gridView1.OptionsBehavior.AllowAddRows = DevExpress.Utils.DefaultBoolean.False;
+            this.gridView1.OptionsBehavior.AllowDeleteRows = DevExpress.Utils.DefaultBoolean.False;
+            this.gridView1.OptionsBehavior.AllowFixedGroups = DevExpress.Utils.DefaultBoolean.False;
+            this.gridView1.OptionsBehavior.AllowPartialGroups = DevExpress.Utils.DefaultBoolean.False;
+            this.gridView1.OptionsBehavior.AllowPartialRedrawOnScrolling = false;
+            this.gridView1.OptionsBehavior.AllowPixelScrolling = DevExpress.Utils.DefaultBoolean.False;
+            this.gridView1.OptionsBehavior.Editable = false;
+            this.gridView1.OptionsBehavior.ReadOnly = true;
+            this.gridView1.OptionsCustomization.AllowColumnMoving = false;
+            this.gridView1.OptionsCustomization.AllowColumnResizing = false;
+            this.gridView1.OptionsCustomization.AllowGroup = false;
+            this.gridView1.OptionsCustomization.AllowQuickHideColumns = false;
+            this.gridView1.OptionsDetail.EnableMasterViewMode = false;
+            this.gridView1.OptionsMenu.EnableColumnMenu = false;
+            this.gridView1.OptionsMenu.EnableFooterMenu = false;
+            this.gridView1.OptionsMenu.EnableGroupPanelMenu = false;
+            this.gridView1.OptionsMenu.ShowDateTimeGroupIntervalItems = false;
+            this.gridView1.OptionsMenu.ShowGroupSortSummaryItems = false;
+            this.gridView1.OptionsMenu.ShowSplitItem = false;
             this.gridView1.OptionsView.ShowGroupPanel = false;
             this.gridView1.InitNewRow += new DevExpress.XtraGrid.Views.Grid.InitNewRowEventHandler(this.gridView1_InitNewRow);
             // 
@@ -61,6 +81,7 @@
             this.colSeqNo.Name = "colSeqNo";
             this.colSeqNo.Visible = true;
             this.colSeqNo.VisibleIndex = 0;
+            this.colSeqNo.Width = 71;
             // 
             // colBusinessType
             // 
@@ -69,6 +90,7 @@
             this.colBusinessType.Name = "colBusinessType";
             this.colBusinessType.Visible = true;
             this.colBusinessType.VisibleIndex = 1;
+            this.colBusinessType.Width = 234;
             // 
             // colMessage
             // 
@@ -77,6 +99,7 @@
             this.colMessage.Name = "colMessage";
             this.colMessage.Visible = true;
             this.colMessage.VisibleIndex = 2;
+            this.colMessage.Width = 237;
             // 
             // Form1
             // 

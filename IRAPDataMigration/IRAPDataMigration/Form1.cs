@@ -42,7 +42,7 @@ namespace IRAP.DataMigration {
         private void gridView1_InitNewRow(object sender, DevExpress.XtraGrid.Views.Grid.InitNewRowEventArgs e) { 
             lock (this.gridView1) {
                 ColumnView view = sender as ColumnView;
-                view.SetRowCellValue(e.RowHandle, "SeqNo", view.RowCount-1);
+                view.SetRowCellValue(e.RowHandle, "SeqNo", view.RowCount);
                 view.SetRowCellValue(e.RowHandle, "BusinessType", _tempBusinessType);
                 view.SetRowCellValue(e.RowHandle, "Message", _tempErrText);
             } 
