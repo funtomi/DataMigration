@@ -7,8 +7,8 @@
     <ProjectGuid>{F41D138F-100D-4F45-B3DD-46F2EA5052C8}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>IRAPDataMigration</RootNamespace>
-    <AssemblyName>IRAPDataMigration</AssemblyName>
+    <RootNamespace>IRAP.DataMigration</RootNamespace>
+    <AssemblyName>IRAP.DataMigration</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
@@ -78,6 +78,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataMigirationDraw.cs" />
     <Compile Include="DataMigirationTransfer.cs" />
     <Compile Include="DataMigrationBase.cs" />
     <Compile Include="Form1.cs">

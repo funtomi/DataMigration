@@ -1,52 +1,18 @@
 ﻿using IRAP.Global;
 using Oracle.DataAccess.Client;
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Reflection;
-using System.Text;
 
 namespace IRAP.DataMigration {
-    class DataMigirationTransfer:DataMigrationBase {
-        public DataMigirationTransfer() { 
-        }
-        private static string className = MethodBase.GetCurrentMethod().DeclaringType.FullName;
-
-        public override System.Data.DataTable GetSourceData(out int errCode,out string errText) {
-            string strProcedureName = string.Format( "{0}.{1}", className, MethodBase.GetCurrentMethod().Name);
-            WriteLog.Instance.WriteBeginSplitter(strProcedureName);
-            errCode = 0;
-            errText = "";
-            try { 
-                WriteLog.Instance.Write("获取视图uvw_todo_grzy内容：", strProcedureName);
-
-                #region 执行数据库函数或存储过程
-                using (OracleConnection conn = new OracleConnection(CON_STR_SOURCE)) {
-                    conn.Open();
-                    string sql = "select * from UVW_TODO_GRZY";
-                    OracleDataAdapter ada = new OracleDataAdapter(sql, conn);
-                    //OracleCommand cmd = new OracleCommand(sql, conn);
-                    //var result = cmd.ExecuteScalar();
-                    DataTable dt = new DataTable();
-                    ada.Fill(dt); 
-                    return dt;
-                }
-                #endregion
-            } catch (Exception error) {
-                errCode = 99000;
-                errText = string.Format("获取视图uvw_todo_grzy内容时发生异常：{0}", error.Message);
-                return null;
-            } finally {
-                WriteLog.Instance.WriteEndSplitter(strProcedureName);
-            }
-        }
+    class DataMigirationTransfer:DataMigrationBase { 
+        private static string className = MethodBase.GetCurrentMethod().DeclaringType.FullName; 
 
         public override void Query(out int errCode, out string errText) {
             string strProcedureName = string.Format( "{0}.{1}", className, MethodBase.GetCurrentMethod().Name);
             WriteLog.Instance.WriteBeginSplitter(strProcedureName); 
-            var sourceData = GetSourceData(out errCode, out errText);
+            var sourceData = GetSourceData("uvw_todo_grzy",out errCode, out errText);
             if (errCode !=0) {
                 return;
             }
@@ -62,7 +28,7 @@ namespace IRAP.DataMigration {
             }
         }
 
-        public override void InsertData(object obj, out int errCode, out string errText) {
+        public override void InsertData(object obj,out int errCode, out string errText) {
             string strProcedureName = string.Format("{0}.{1}", className, MethodBase.GetCurrentMethod().Name);
             WriteLog.Instance.WriteBeginSplitter(strProcedureName);
             errCode = 0;
@@ -106,8 +72,10 @@ namespace IRAP.DataMigration {
                     errCode = ocm.Parameters["o_errCode"] == null ? 0 : Convert.ToInt32(ocm.Parameters["o_errCode"].Value.ToString());
                     errText = ocm.Parameters["o_errtext"] == null || ocm.Parameters["o_errtext"].Value == null ? null : ocm.Parameters["o_errtext"].Value.ToString();
                 }
-                ShowResult(item.REMARK, errText);
+                var errInfo = errText;
                 this.SaveResult(item.TRANSACTNO, errCode, errText);
+                errInfo += errText;
+                ShowResult(item.REMARK, errInfo);
                 #endregion
             } catch (Exception error) {
                 errCode = 99000;

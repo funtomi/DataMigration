@@ -1,27 +1,23 @@
 ﻿using IRAP.Global;
 using Oracle.DataAccess.Client;
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
-using System.Linq;
 using System.Reflection;
-using System.Text;
 using System.Threading;
 
 namespace IRAP.DataMigration {
     public abstract class DataMigrationBase { 
         private static string _className = MethodBase.GetCurrentMethod().DeclaringType.FullName;
         protected static string CON_STR_SOURCE = ConfigurationManager.AppSettings["DBSource"].ToString();
-        protected static string CON_STR_TARGET = ConfigurationManager.AppSettings["DBTarget"].ToString();
+        protected static string CON_STR_TARGET = ConfigurationManager.AppSettings["DBTarget"].ToString(); 
         protected object DataEntity {
             get { return _dataEntity; }
             set { _dataEntity = value; }
         }
         private object _dataEntity;
 
-        public abstract DataTable GetSourceData(out int errCode, out string errText);
+       
         public abstract void Query(out int errCode, out string errText);
         public abstract void InsertData(object obj, out int errCode, out string errText);
         public delegate void ShowResultDelegate(string businessType, string errText);
@@ -80,6 +76,33 @@ namespace IRAP.DataMigration {
             }  
         }
 
-        
+        protected DataTable GetSourceData(string tableName,out int errCode, out string errText){
+            string strProcedureName = string.Format("{0}.{1}", _className, MethodBase.GetCurrentMethod().Name);
+            WriteLog.Instance.WriteBeginSplitter(strProcedureName);
+            errCode = 0;
+            errText = "";
+            try {
+                WriteLog.Instance.Write(string.Format("获取视图{0}内容：",tableName), strProcedureName);
+
+                #region 执行数据库函数或存储过程
+                using (OracleConnection conn = new OracleConnection(CON_STR_SOURCE)) {
+                    conn.Open();
+                    string sql = string.Format("select * from {0}",tableName);
+                    OracleDataAdapter ada = new OracleDataAdapter(sql, conn);
+                    //OracleCommand cmd = new OracleCommand(sql, conn);
+                    //var result = cmd.ExecuteScalar();
+                    DataTable dt = new DataTable();
+                    ada.Fill(dt);
+                    return dt;
+                }
+                #endregion
+            } catch (Exception error) {
+                errCode = 99000;
+                errText = string.Format("获取视图{0}内容时发生异常：{1}",tableName, error.Message);
+                return null;
+            } finally {
+                WriteLog.Instance.WriteEndSplitter(strProcedureName);
+            }
+        }
     }
 }

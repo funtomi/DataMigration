@@ -15,12 +15,7 @@ namespace IRAP.DataMigration {
         private string _tempErrText = "";
         delegate void AsynUpdateUI(string businessType, string errText);
         public Form1() {
-            InitializeComponent();
-
-            this.gridControl1.DataSource = this.gridControl1.DataSource == null ? CreateDataSource() : this.gridControl1.DataSource;
-            DataMigirationTransfer trans = new DataMigirationTransfer();
-            trans.ShowResult += ShowResultToGrid;
-            trans.Start();
+            InitializeComponent(); 
         }
 
         private void ShowResultToGrid(string businessType, string errText) {
@@ -37,15 +32,31 @@ namespace IRAP.DataMigration {
             dt.Columns.Add(new DataColumn("BusinessType", typeof(string)));
             dt.Columns.Add(new DataColumn("Message", typeof(string)));
             return dt;
+        } 
+
+        private void CreateTasks() {
+            //转移
+            DataMigirationTransfer trans = new DataMigirationTransfer();
+            trans.ShowResult += ShowResultToGrid;
+            trans.Start();
+
+            DataMigirationDraw draw = new DataMigirationDraw();
+            draw.ShowResult += ShowResultToGrid;
+            draw.Start();
         }
 
-        private void gridView1_InitNewRow(object sender, DevExpress.XtraGrid.Views.Grid.InitNewRowEventArgs e) { 
+        private void Form1_Load(object sender, EventArgs e) {
+            this.gridControl1.DataSource = this.gridControl1.DataSource == null ? CreateDataSource() : this.gridControl1.DataSource;
+            CreateTasks();
+        }
+
+        private void gridView1_InitNewRow(object sender, DevExpress.XtraGrid.Views.Grid.InitNewRowEventArgs e) {
             lock (this.gridView1) {
                 ColumnView view = sender as ColumnView;
                 view.SetRowCellValue(e.RowHandle, "SeqNo", view.RowCount);
                 view.SetRowCellValue(e.RowHandle, "BusinessType", _tempBusinessType);
                 view.SetRowCellValue(e.RowHandle, "Message", _tempErrText);
-            } 
+            }
         }
     }
 }

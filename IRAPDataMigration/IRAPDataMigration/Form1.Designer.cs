@@ -90,7 +90,7 @@
             this.colBusinessType.Name = "colBusinessType";
             this.colBusinessType.Visible = true;
             this.colBusinessType.VisibleIndex = 1;
-            this.colBusinessType.Width = 234;
+            this.colBusinessType.Width = 118;
             // 
             // colMessage
             // 
@@ -99,7 +99,7 @@
             this.colMessage.Name = "colMessage";
             this.colMessage.Visible = true;
             this.colMessage.VisibleIndex = 2;
-            this.colMessage.Width = 237;
+            this.colMessage.Width = 353;
             // 
             // Form1
             // 
@@ -109,6 +109,7 @@
             this.Controls.Add(this.gridControl1);
             this.Name = "Form1";
             this.Text = "Form1";
+            this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.gridControl1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView1)).EndInit();
             this.ResumeLayout(false);
